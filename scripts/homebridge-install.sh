@@ -101,16 +101,6 @@ cat <<EOF > /var/homebridge/config.json
   ]
 }
 EOF
-chmod -R 0777 /var/homebridge
-chmod 664 /etc/systemd/system/homebridge.service
-chmod 664 /etc/default/homebridge
-chmod 664 /etc/systemd/system/homebridge-install1.service
-chmod 744 /usr/local/bin/homebridge-install1.sh
-chmod 664 /etc/systemd/system/homebridge-install2.service
-chmod 744 /usr/local/bin/homebridge-install2.sh
-chmod 664 /etc/systemd/system/homebridge-install3.service
-chmod 744 /usr/local/bin/homebridge-install3.sh
-systemctl daemon-reload
 # Setting stage (1)
 cat <<EOF > /etc/systemd/system/homebridge-install1.service
 [Unit]
@@ -188,6 +178,16 @@ systemctl daemon-reload
 sleep 5
 reboot
 EOF
+chmod -R 0777 /var/homebridge
+chmod 664 /etc/systemd/system/homebridge.service
+chmod 664 /etc/default/homebridge
+chmod 664 /etc/systemd/system/homebridge-install1.service
+chmod 744 /usr/local/bin/homebridge-install1.sh
+chmod 664 /etc/systemd/system/homebridge-install2.service
+chmod 744 /usr/local/bin/homebridge-install2.sh
+chmod 664 /etc/systemd/system/homebridge-install3.service
+chmod 744 /usr/local/bin/homebridge-install3.sh
 systemctl daemon-reload
 systemctl enable homebridge-install1.service
+sleep 5
 reboot
