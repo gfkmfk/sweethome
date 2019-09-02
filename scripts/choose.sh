@@ -16,24 +16,29 @@ do
 
   # (2) handle the input we were given
   case $answer in
-   [aA]* ) echo "Choosed: A. Domoticz + Homebridge"
+   [aA]* ) echo 
+           echo "Choosed: A. Domoticz + Homebridge"
            # wget "https://github.com/gfkmfk/sweethome/raw/master/scripts/homebridge-install.sh" -O /usr/local/bin/homebridge-install.sh
            # chmod +x /usr/local/bin/homebridge-install.sh
            # /usr/local/bin/homebridge-install.sh
            /usr/local/bin/choose.sh
            break;;
            
-   [bB]* ) echo "Choosed: B. Not yet realised"
-           /usr/local/bin/choose.sh
-           break;;
+   [bB]* ) echo 
+           echo "Choosed: B. Not yet realised"
            
-   [cC]* ) echo "Choosed: C. Not yet realised"
+   [cC]* ) echo
+           echo "Choosed: C. Not yet realised"
            /usr/local/bin/choose.sh
            break;;
 
-   [xX]* ) "Exiting"
+   [xX]* ) echo
+           echo "Exiting"
+           echo
            exit;;
 
-   * )     echo "Dude, just enter A, B, C or X, please.";;
+   * )     echo
+           echo "Dude, just enter A, B, C or X, please.";;
+           echo
   esac
 done
