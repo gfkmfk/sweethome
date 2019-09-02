@@ -63,7 +63,7 @@ rm -rf /usr/local/bin/wificontroller-install1.sh
 rm -rf /etc/systemd/system/wificontroller-install2.service
 rm -rf /usr/local/bin/wificontroller-install2.sh
 systemctl daemon-reload
-sleep 20
+sleep 80
 reboot
 EOF
 chmod 664 /etc/systemd/system/wificontroller-install1.service
