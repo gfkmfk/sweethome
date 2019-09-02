@@ -43,15 +43,6 @@ raspi-config nonint do_change_locale $LOCALE
 raspi-config nonint do_change_timezone $TIMEZONE
 echo "Setting Locale options complete"
 # Setting autostart files
-cat <<EOF > /etc/default/homebridge
-# Defaults / Configuration options for homebridge
-# The following settings tells homebridge where to find the config.json file and where to persist the data (i.e. pairing and others)
-HOMEBRIDGE_OPTS=-U /var/homebridge
-
-# If you uncomment the following line, homebridge will log more
-# You can display this via systemd’s journalctl: journalctl -f -u homebridge
-# DEBUG=*
-EOF
 cat <<EOF > /etc/systemd/system/homebridge.service
 [Unit]
 Description=SweetHome homebridge server
@@ -60,8 +51,7 @@ After=syslog.target network-online.target
 [Service]
 Type=simple
 User=homebridge
-EnvironmentFile=/etc/default/homebridge
-ExecStart=/usr/local/bin/homebridge $HOMEBRIDGE_OPTS
+ExecStart=/usr/local/bin/homebridge -U /var/homebridge
 Restart=on-failure
 RestartSec=10
 KillMode=process
@@ -143,6 +133,8 @@ sleep 30
 npm install -g homebridge
 npm install -g homebridge-edomoticz
 useradd --system homebridge
+mkdir /home/homebridge
+chown -Rf homebridge /home/homebridge
 # Removing previous stage (2) and setting next stage (3)
 systemctl disable homebridge-install2.service
 systemctl daemon-reload
@@ -180,7 +172,6 @@ reboot
 EOF
 chmod -R 0777 /var/homebridge
 chmod 664 /etc/systemd/system/homebridge.service
-chmod 664 /etc/default/homebridge
 chmod 664 /etc/systemd/system/homebridge-install1.service
 chmod 744 /usr/local/bin/homebridge-install1.sh
 chmod 664 /etc/systemd/system/homebridge-install2.service
