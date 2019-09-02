@@ -530,11 +530,20 @@ main() {
 		chooseDestinationFolder
 		installdomoticz
 	else
-		updatedomoticz
+		echo "Unattended installation started!"
+		mkdir -p /etc/domoticz/
+		Dest_folder=""
+		Enable_http=true
+		Enable_https=true
+		HTTP_port="8080"
+		HTTPS_port="443"
+		installdomoticz
 	fi
 
 	if [[ "${useUpdateVars}" == false ]]; then
 	    displayFinalMessage
+	else
+	    done
 	fi
 
 	echo "::: Restarting services..."
