@@ -10,7 +10,10 @@ if [ "$CONDITION" == "a" ]; then
    # chmod +x /usr/local/bin/homebridge-install.sh
    # /usr/local/bin/homebridge-install.sh
    /usr/local/bin/choose.sh
-   else
+   else [ "$CONDITION" == "a" ]; then
      echo "Choosed: b. not yet realised"
      /usr/local/bin/choose.sh
+     else
+       echo "Incorrect input!"
+       /usr/local/bin/choose.sh
 fi
