@@ -143,6 +143,13 @@ sleep 20
 reboot
 EOF
 #Setting stage (3)
+cat <<EOF > /etc/domoticz/setupVars.conf
+Dest_folder=/var/domoticz
+Enable_http=true
+HTTP_port=80
+Enable_https=true
+HTTPS_port=443
+EOF
 cat <<EOF > /etc/systemd/system/homebridge-install3.service
 [Unit]
 After=homebridge-install3.service
@@ -155,13 +162,6 @@ cat <<EOF > /usr/local/bin/homebridge-install3.sh
 #!/bin/bash
 sleep 30
 # Installing Domoticz
-cat <<EOF > /etc/domoticz/setupVars.conf
-Dest_folder=/var/domoticz
-Enable_http=true
-HTTP_port=80
-Enable_https=true
-HTTPS_port=443
-EOF
 wget "https://install.domoticz.com" -O /usr/local/bin/domoticz-install.sh
 chmod +x /usr/local/bin/domoticz-install.sh
 /usr/local/bin/domoticz-install.sh --unattended
@@ -188,7 +188,7 @@ sleep 30
 # Setting up Homebridge and platforms
 systemctl enable homebridge
 # Removing previous stage (4) and cleaning up
-systemctl disable homebridge-install3.service
+systemctl disable homebridge-install4.service
 systemctl daemon-reload
 rm -rf /usr/local/bin/homebridge-install.sh
 rm -rf /usr/local/bin/domoticz-install.sh
