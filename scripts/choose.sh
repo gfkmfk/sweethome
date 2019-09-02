@@ -3,7 +3,7 @@ echo
 echo "Please choose configution:"
 echo
 echo "A. Domoticz + Homebridge"
-echo "B. Ubiquity WiFi controlle"
+echo "B. Ubiquity WiFi controller"
 echo "C. Not yet realised"
 echo "D. Not yet realised"
 echo
