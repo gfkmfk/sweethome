@@ -3,7 +3,7 @@ echo
 echo "Please choose configution:"
 echo
 echo "A. Domoticz + Homebridge"
-echo "B. Not yet realised"
+echo "B. Ubiquity WiFi controlle"
 echo "C. Not yet realised"
 echo "D. Not yet realised"
 echo
@@ -27,8 +27,14 @@ do
            exit;;
            
    [bB]* ) echo 
-           echo "Choosed: B. Not yet realised"
-           echo;;
+           echo "Choosed: B. Ubiquity WiFi controller"
+           wget "https://github.com/gfkmfk/sweethome/raw/master/scripts/wificontroller-install.sh" -O /usr/local/bin/wificontroller-install.sh
+           chmod +x /usr/local/bin/wificontroller-install.sh
+           echo
+           echo "Running sript"
+           echo
+           /usr/local/bin/wificontroller-install.sh
+           exit;;
            
    [cC]* ) echo
            echo "Choosed: C. Not yet realised"
