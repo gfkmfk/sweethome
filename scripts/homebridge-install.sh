@@ -181,3 +181,4 @@ sleep 5
 raspi-config nonint do_hostname $HOSTNAME
 sleep 5
 reboot
+exit
