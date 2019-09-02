@@ -230,8 +230,248 @@ enable_service() {
 }
 
 update_package_cache() {
-	#Running apt-get update/upgrade with minimal output can cause some issues with
-	#requiring user input (e.g password for phpmyadmin see #218)
+        #Running apt-get update/upgrade with minimal output can cause some issues with
+        #requiring user input (e.g password for phpmyadmin see #218)
 
-	#Check to see if apt-get update has already been run today
-	#it needs to have been run at least once on ne…
+        #Check to see if apt-get update has already been run today
+        #it needs to have been run at least once on new installs!
+        timestamp=$(stat -c %Y ${PKG_CACHE})
+        timestampAsDate=$(date -d @"${timestamp}" "+%b %e")
+        today=$(date "+%b %e")
+
+        if [ ! "${today}" == "${timestampAsDate}" ]; then
+                #update package lists
+                echo ":::"
+                echo -n "::: ${PKG_MANAGER} update has not been run today. Running now..."
+                ${UPDATE_PKG_CACHE} &> /dev/null & spinner $!
+                echo " done!"
+        fi
+}
+
+notify_package_updates_available() {
+  # Let user know if they have outdated packages on their system and
+  # advise them to run a package update at soonest possible.
+        echo ":::"
+        echo -n "::: Checking ${PKG_MANAGER} for upgraded packages...."
+        updatesToInstall=$(eval "${PKG_COUNT}")
+        echo " done!"
+        echo ":::"
+        if [[ ${updatesToInstall} -eq "0" ]]; then
+                echo "::: Your system is up to date! Continuing with Domoticz installation..."
+        else
+                echo "::: There are ${updatesToInstall} updates available for your system!"
+                echo "::: We recommend you run '${PKG_UPDATE}' after installing Domoticz! "
+                echo ":::"
+        fi
+}
+
+install_dependent_packages() {
+        # Install packages passed in via argument array
+        # No spinner - conflicts with set -e
+        declare -a argArray1=("${!1}")
+
+        for i in "${argArray1[@]}"; do
+                echo -n ":::    Checking for $i..."
+                package_check_install "${i}" &> /dev/null
+                echo " installed!"
+        done
+}
+
+finalExports() {
+        #If it already exists, lets overwrite it with the new values.
+        if [[ -f ${setupVars} ]]; then
+                rm ${setupVars}
+        fi
+    {
+        echo "Dest_folder=${Dest_folder}"
+        echo "Enable_http=${Enable_http}"
+        echo "HTTP_port=${HTTP_port}"
+        echo "Enable_https=${Enable_https}"
+        echo "HTTPS_port=${HTTPS_port}"
+    }>> "${setupVars}"
+}
+
+downloadDomoticzWeb() {
+        echo "::: Destination folder=${Dest_folder}"
+        if [[ ! -e $Dest_folder ]]; then
+                echo "::: Creating ${Dest_folder}"
+                mkdir $Dest_folder
+                chown "${Current_user}":"${Current_user}" $Dest_folder
+        fi
+        cd $Dest_folder
+        wget -O domoticz_release.tgz "http://www.domoticz.com/download.php?channel=release&type=release&system=${OS}&machine=${MACH}"
+        echo "::: Unpacking Domoticz..."
+        tar xvfz domoticz_release.tgz
+        rm domoticz_release.tgz
+        Database_file="${Dest_folder}/domoticz.db"
+        if [ ! -f $Database_file ]; then
+                echo "Creating database..."
+                touch $Database_file
+                chmod 644 $Database_file
+                chown "${Current_user}":"${Current_user}" $Database_file
+        fi
+}
+
+
+makeStartupScript() {
+        cp "${Dest_folder}/domoticz.sh" /tmp/domoticz_tmp_ss1
+
+    #configure the script
+    cat /tmp/domoticz_tmp_ss1 | sed -e "s/USERNAME=pi/USERNAME=${Current_user}/" > /tmp/domoticz_tmp_ss2
+    rm /tmp/domoticz_tmp_ss1
+    
+    local http_port="${HTTP_port}"
+    local https_port="${HTTPS_port}"
+        if [ "$Enable_http" = false ] ; then
+                http_port="0"
+        fi    
+        if [ "$Enable_https" = false ] ; then
+                https_port="0"
+        fi    
+    
+    cat /tmp/domoticz_tmp_ss2 | sed -e "s/-www 8080/-www ${http_port}/" > /tmp/domoticz_tmp_ss1
+    rm /tmp/domoticz_tmp_ss2
+    cat /tmp/domoticz_tmp_ss1 | sed -e "s/-sslwww 443/-sslwww ${https_port}/" > /tmp/domoticz_tmp_ss2
+    rm /tmp/domoticz_tmp_ss1
+    cat /tmp/domoticz_tmp_ss2 | sed -e "s%/home/\$USERNAME/domoticz%${Dest_folder}%" > /tmp/domoticz_tmp_ss1
+    rm /tmp/domoticz_tmp_ss2
+    
+    mv /tmp/domoticz_tmp_ss1 /etc/init.d/domoticz.sh
+        chmod +x /etc/init.d/domoticz.sh
+        update-rc.d domoticz.sh defaults
+}
+
+installdomoticz() {
+        # Install base files
+        downloadDomoticzWeb
+        makeStartupScript
+        finalExports
+}
+
+updatedomoticz() {
+        # Source ${setupVars} for use in the rest of the functions.
+        . ${setupVars}
+        # Install base files
+        downloadDomoticzWeb
+}
+
+update_dialogs() {
+        # reconfigure
+        if [ "${reconfigure}" = true ]; then
+                opt1a="Repair"
+                opt1b="This will retain existing settings"
+                strAdd="You will remain on the same version"
+        else
+                opt1a="Update"
+                opt1b="This will retain existing settings."
+                strAdd="You will be updated to the latest version."
+        fi
+        opt2a="Reconfigure"
+        opt2b="This will allow you to enter new settings"
+        if [[ $? = 0 ]];then
+                case ${UpdateCmd} in
+                        ${opt1a})
+                                echo "::: ${opt1a} option selected."
+                                useUpdateVars=true
+                                ;;
+                        ${opt2a})
+                                echo "::: ${opt2a} option selected"
+                                useUpdateVars=false
+                                ;;
+                esac
+        else
+                echo "::: Cancel selected. Exiting..."
+                exit 1
+        fi
+
+}
+
+install_packages() {
+        # Update package cache
+        update_package_cache
+
+        # Notify user of package availability
+        notify_package_updates_available
+
+        # Install packages used by this installation script
+        install_dependent_packages INSTALLER_DEPS[@]
+
+        # Install packages used by the Domoticz
+        install_dependent_packages domoticz_DEPS[@]
+}
+
+main() {
+# Check arguments for the undocumented flags
+        for var in "$@"; do
+                case "$var" in
+                        "--reconfigure"  ) reconfigure=true;;
+                        "--i_do_not_follow_recommendations"   ) skipSpaceCheck=false;;
+                        "--unattended"     ) runUnattended=true;;
+                esac
+        done
+
+        if [[ -f ${setupVars} ]]; then
+                if [[ "${runUnattended}" == true ]]; then
+                        echo "::: --unattended passed to install script, no whiptail dialogs will be displayed"
+                        useUpdateVars=true
+                else
+                        update_dialogs
+                fi
+        fi
+
+        # Start the installer
+        # Verify there is enough disk space for the install
+        if [[ "${skipSpaceCheck}" == true ]]; then
+                echo "::: --i_do_not_follow_recommendations passed to script, skipping free disk space verification!"
+        else
+                verifyFreeDiskSpace
+        fi
+
+        install_packages
+
+        if [[ "${reconfigure}" == true ]]; then
+                echo "::: --reconfigure passed to install script. Not downloading/updating local installation"
+        else
+                echo "::: Downloading Domoticz"
+        fi
+        
+        find_current_user
+        
+        Dest_folder="/home/${Current_user}/domoticz"
+
+        find_IPv4_information
+
+        if [[ ${useUpdateVars} == false ]]; then
+                # Display welcome dialogs
+                welcomeDialogs
+                # Create directory for Domoticz storage
+                mkdir -p /etc/domoticz/
+                # Install and log everything to a file
+                chooseServices
+                chooseDestinationFolder
+                installdomoticz
+        else
+                updatedomoticz
+        fi
+
+        if [[ "${useUpdateVars}" == false ]]; then
+            displayFinalMessage
+        fi
+
+        echo "::: Restarting services..."
+        # Start services
+        enable_service domoticz.sh
+        start_service domoticz.sh
+        echo "::: done."
+
+        echo ":::"
+        if [[ "${useUpdateVars}" == false ]]; then
+                echo "::: Installation Complete! Configure your browser to use the Domoticz using:"
+                echo ":::     ${IPv4_address%/*}:${HTTP_port}"
+                echo ":::     ${IPv4_address%/*}:${HTTPS_port}"
+        else
+                echo "::: Update complete!"
+        fi
+}
+
+main "$@"
