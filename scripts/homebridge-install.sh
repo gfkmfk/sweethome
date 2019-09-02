@@ -162,9 +162,9 @@ cat <<EOF > /usr/local/bin/homebridge-install3.sh
 #!/bin/bash
 sleep 30
 # Installing Domoticz
-wget "https://install.domoticz.com" -O /usr/local/bin/domoticz-install.sh
+wget "https://github.com/gfkmfk/sweethome/raw/master/scripts/domoticz-install.sh" -O /usr/local/bin/domoticz-install.sh
 chmod +x /usr/local/bin/domoticz-install.sh
-/usr/local/bin/domoticz-install.sh --unattended
+/usr/local/bin/domoticz-install.sh
 sleep 60
 # Removing previous stage (3) and setting next stage (4)
 systemctl disable homebridge-install3.service
