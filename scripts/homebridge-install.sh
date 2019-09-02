@@ -149,6 +149,7 @@ systemctl enable homebridge
 # Removing previous stage (4) and cleaning up
 systemctl disable homebridge-install4.service
 systemctl daemon-reload
+rm -rf /usr/local/bin/main-install.sh
 rm -rf /usr/local/bin/homebridge-install.sh
 rm -rf /usr/local/bin/domoticz-install.sh
 rm -rf /etc/systemd/system/homebridge-install1.service
