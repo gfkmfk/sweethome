@@ -1,6 +1,5 @@
 #!/bin/bash
 echo
-echo
 echo "Please choose configution:"
 echo
 echo "A. Domoticz + Homebridge"
