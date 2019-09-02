@@ -14,7 +14,7 @@
 #
 # Install with this command (from your Pi):
 #
-# curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/install-domoticz.sh | bash
+# curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/domoticz-install.sh | bash
 
 set -e
 ######## VARIABLES #########
@@ -65,7 +65,7 @@ else
 
 	if [ -x "$(command -v sudo)" ]; then
 		echo "::: Utility sudo located."
-		exec curl -sSL https://github.com/gfkmfk/sweethome/raw/master/scripts/install-domoticz.sh | sudo bash "$@"
+		exec curl -sSL https://github.com/gfkmfk/sweethome/raw/master/scripts/domoticz-install.sh | sudo bash "$@"
 		exit $?
 	else
 		echo "::: sudo is needed for the Web interface to run domoticz commands.  Please run this script as root and it will be automatically installed."
