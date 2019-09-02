@@ -57,15 +57,17 @@ if [ "$AMSURE" = "a" ] ; then
 else
    if [ "$AMSURE" = "b" ] ; then
    # Call 
-   echo "nope"
+   echo "nope)"
+   return AMSURE
    else
       if [ "$AMSURE" = "c" ] ; then
       # Call 
-      echo "nope"
+      echo "nope)"
+      return AMSURE
       else
          echo ""
          echo "Incorrect input!"
-         reboot
+         return AMSURE
       fi
    fi
 fi
