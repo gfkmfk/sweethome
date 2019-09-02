@@ -1,6 +1,6 @@
 #!/bin/sh
 read -p "Is this a good question (a/b/c/x)? " answer
-case ${answer:0:1:2:3} in
+case ${answer:0} in
     a|A )
         echo "a"
     ;;
