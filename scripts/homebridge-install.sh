@@ -154,18 +154,52 @@ EOF
 cat <<EOF > /usr/local/bin/homebridge-install3.sh
 #!/bin/bash
 sleep 30
+# Installing Domoticz
+cat <<EOF > /etc/domoticz/setupVars.conf
+Dest_folder=/var/domoticz
+Enable_http=true
+HTTP_port=80
+Enable_https=true
+HTTPS_port=443
+EOF
+wget "https://install.domoticz.com" -O /usr/local/bin/domoticz-install.sh
+chmod +x /usr/local/bin/domoticz-install.sh
+/usr/local/bin/domoticz-install.sh --unattended
+sleep 60
+# Removing previous stage (3) and setting next stage (4)
+systemctl disable homebridge-install3.service
+systemctl daemon-reload
+systemctl enable homebridge-install4.service
+sleep 20
+reboot
+EOF
+#Setting stage (4)
+cat <<EOF > /etc/systemd/system/homebridge-install4.service
+[Unit]
+After=homebridge-install4.service
+[Service]
+ExecStart=/usr/local/bin/homebridge-install4.sh
+[Install]
+WantedBy=default.target
+EOF
+cat <<EOF > /usr/local/bin/homebridge-install4.sh
+#!/bin/bash
+sleep 30
 # Setting up Homebridge and platforms
 systemctl enable homebridge
-# Removing previous stage (3) and cleaning up
+# Removing previous stage (4) and cleaning up
 systemctl disable homebridge-install3.service
 systemctl daemon-reload
 rm -rf /usr/local/bin/homebridge-install.sh
+rm -rf /usr/local/bin/domoticz-install.sh
 rm -rf /etc/systemd/system/homebridge-install1.service
 rm -rf /usr/local/bin/homebridge-install1.sh
 rm -rf /etc/systemd/system/homebridge-install2.service
 rm -rf /usr/local/bin/homebridge-install2.sh
 rm -rf /etc/systemd/system/homebridge-install3.service
 rm -rf /usr/local/bin/homebridge-install3.sh
+rm -rf /etc/systemd/system/homebridge-install4.service
+rm -rf /usr/local/bin/homebridge-install4.sh
 systemctl daemon-reload
 sleep 5
 reboot
@@ -178,6 +212,8 @@ chmod 664 /etc/systemd/system/homebridge-install2.service
 chmod 744 /usr/local/bin/homebridge-install2.sh
 chmod 664 /etc/systemd/system/homebridge-install3.service
 chmod 744 /usr/local/bin/homebridge-install3.sh
+chmod 664 /etc/systemd/system/homebridge-install4.service
+chmod 744 /usr/local/bin/homebridge-install4.sh
 systemctl daemon-reload
 systemctl enable homebridge-install1.service
 sleep 5
