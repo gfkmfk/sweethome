@@ -543,7 +543,8 @@ main() {
 	if [[ "${useUpdateVars}" == false ]]; then
 	    displayFinalMessage
 	else
-	    done
+	    echo "Unattended installation complete!"
+	    exit
 	fi
 
 	echo "::: Restarting services..."
