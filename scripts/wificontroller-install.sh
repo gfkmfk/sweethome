@@ -53,6 +53,8 @@ apt-get upgrade -y
 apt-get autoremove -y
 apt-get autoclean -y
 # Removing previous stage (2) and cleaning up
+systemctl stop mongodb 
+systemctl disable mongodb
 systemctl disable wificontroller-install2.service
 systemctl daemon-reload
 rm -rf /usr/local/bin/main-install.sh
@@ -63,7 +65,7 @@ rm -rf /usr/local/bin/wificontroller-install1.sh
 rm -rf /etc/systemd/system/wificontroller-install2.service
 rm -rf /usr/local/bin/wificontroller-install2.sh
 systemctl daemon-reload
-sleep 80
+sleep 20
 reboot
 EOF
 chmod 664 /etc/systemd/system/wificontroller-install1.service
