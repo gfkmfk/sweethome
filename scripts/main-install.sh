@@ -40,3 +40,4 @@ echo "Setting Locale options complete"
 wget "https://github.com/gfkmfk/sweethome/raw/master/scripts/choose.sh" -O /usr/local/bin/choose.sh
 chmod +x /usr/local/bin/choose.sh
 /usr/local/bin/choose.sh
+exit
