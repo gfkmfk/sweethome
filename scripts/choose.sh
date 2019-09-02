@@ -1,5 +1,4 @@
 #!/bin/bash
-CHOOSE() {
 echo
 echo "Please choose configution:"
 echo "a. Domoticz + Homebridge"
@@ -21,9 +20,8 @@ else
     echo "c. not yet realised"
     /usr/local/bin/choose.sh
     else
-      echo "Incorrect input!
+      echo "Incorrect input!"
       /usr/local/bin/choose.sh
     fi
   fi
 fi
-}
