@@ -6,11 +6,17 @@ do
 
   # (2) handle the input we were given
   case $answer in
-   [yY]* ) echo "Okay, just ran the cron script."
+   [aA]* ) echo "Okay, just ran the cron script.a"
+           break;;
+           
+   [bB]* ) echo "Okay, just ran the cron script.b"
+           break;;
+           
+   [cC]* ) echo "Okay, just ran the cron script.c"
            break;;
 
-   [nN]* ) exit;;
+   [xX]* ) exit;;
 
-   * )     echo "Dude, just enter Y or N, please.";;
+   * )     echo "Dude, just enter A, B, C or X, please.";;
   esac
 done
