@@ -148,6 +148,31 @@ find_current_user() {
 	echo "::: Current User: ${Current_user}"
 }
 
+welcomeDialogs() {
+        # Display the welcome dialog
+        echo "Welcome to Domoticz automated installer"
+	echo "This installer will transform your device into a Home Automation System!"
+	echo
+	echo "Domoticz is free, but powered by your donations at:  http://www.domoticz.com"
+	echo
+	echo "Domoticz is a SERVER so it needs a STATIC IP ADDRESS to function properly"
+}
+
+displayFinalMessage() {
+        # Final completion message to user
+        echo "Installation Complete!"
+	echo
+	echo "Point your browser to either:"
+	echo "   HTTP:  localhost:80"
+	echo "  HTTPS:  localhost:443"
+	echo
+	echo "Wiki:  https://www.domoticz.com/wiki"
+	echo "Forum: https://www.domoticz.com/forum"
+	echo
+	echo "The install log is in /etc/domoticz."
+}
+
+
 find_IPv4_information() {
 	# Find IP used to route to outside world
 	IPv4dev=$(ip route get 8.8.8.8 | awk '{for(i=1;i<=NF;i++)if($i~/dev/)print $(i+1)}')
