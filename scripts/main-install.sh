@@ -37,9 +37,11 @@ raspi-config nonint do_change_locale $LOCALE
 raspi-config nonint do_change_timezone $TIMEZONE
 echo "Setting Locale options complete" 
 {
-local AMSURE
+AMSURE
 if [ -n "Choose" ] ; then
-   echo "a. homebridge-install.sh"
+   echo
+   echo "Please choose configution:"
+   echo "a. Domoticz + Homebridge"
    echo "b. not yet realised"
    echo "c. not yet realised"
    read -n 1 -p "Choose (a/b/c): " AMSURE
@@ -61,6 +63,8 @@ else
       # Call 
       echo "nope"
       else
+         echo ""
+         echo "Incorrect input!"
          reboot
       fi
    fi
