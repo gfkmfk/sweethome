@@ -26,9 +26,9 @@ apt-get upgrade -y
 apt-get autoremove -y
 apt-get autoclean -y
 # Removing previous stage (1) and setting next stage (2)
-systemctl disable homebridge-install1.service
+systemctl disable wificontroller-install1.service
 systemctl daemon-reload
-systemctl enable homebridge-install2.service
+systemctl enable wificontroller-install2.service
 sleep 20
 reboot
 EOF
@@ -52,7 +52,7 @@ apt-get upgrade -y
 apt-get autoremove -y
 apt-get autoclean -y
 # Removing previous stage (2) and cleaning up
-systemctl disable homebridge-install2.service
+systemctl disable wificontroller-install2.service
 systemctl daemon-reload
 rm -rf /usr/local/bin/main-install.sh
 rm -rf /usr/local/bin/choose.sh
@@ -65,7 +65,6 @@ systemctl daemon-reload
 sleep 20
 reboot
 EOF
-chmod -R 0777 /var/homebridge
 chmod 664 /etc/systemd/system/wificontroller-install1.service
 chmod 744 /usr/local/bin/wificontroller-install1.sh
 chmod 664 /etc/systemd/system/wificontroller-install2.service
