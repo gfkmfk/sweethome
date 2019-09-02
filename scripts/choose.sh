@@ -1,3 +1,4 @@
+#!/bin/bash
 CHOOSE() {
 echo
 echo "Please choose configution:"
