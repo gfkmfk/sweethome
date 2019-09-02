@@ -37,7 +37,6 @@ raspi-config nonint do_change_locale $LOCALE
 raspi-config nonint do_change_timezone $TIMEZONE
 echo "Setting Locale options complete"
 # Call Choose
-https://github.com/gfkmfk/sweethome/raw/master/scripts/choose.sh" -O /usr/local/bin/choose.sh
+wget "https://github.com/gfkmfk/sweethome/raw/master/scripts/choose.sh" -O /usr/local/bin/choose.sh
 chmod +x /usr/local/bin/choose.sh
 /usr/local/bin/choose.sh
-exit
