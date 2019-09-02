@@ -26,6 +26,7 @@ do
            
    [bB]* ) echo 
            echo "Choosed: B. Not yet realised"
+           echo;;
            
    [cC]* ) echo
            echo "Choosed: C. Not yet realised"
@@ -38,7 +39,7 @@ do
            exit;;
 
    * )     echo
-           echo "Dude, just enter A, B, C or X, please.";;
-           echo
+           echo "Dude, just enter A, B, C or X, please."
+           echo;;
   esac
 done
