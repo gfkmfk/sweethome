@@ -19,6 +19,7 @@ apt-get update
 echo 'deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti' | sudo tee /etc/apt/sources.list.d/100-ubnt-unifi.list
 sudo wget -O /etc/apt/trusted.gpg.d/unifi-repo.gpg https://dl.ubnt.com/unifi/unifi-repo.gpg
 apt-get update
+apt-get upgrade -y
 apt-get install openjdk-8-jre-headless haveged -y
 # Updating software
 apt-get update
