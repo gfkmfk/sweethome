@@ -176,4 +176,7 @@ chmod 744 /usr/local/bin/homebridge-install4.sh
 systemctl daemon-reload
 systemctl enable homebridge-install1.service
 sleep 5
+# Set Hostname
+raspi-config nonint do_hostname $HOSTNAME
+sleep 5
 reboot
