@@ -25,7 +25,7 @@ do
            echo "Running sript"
            echo
            /usr/local/bin/homebridge-install.sh
-           break;;
+           exit;;
            
    [bB]* ) echo 
            echo "Choosed: B. Not yet realised"
