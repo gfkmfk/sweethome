@@ -35,17 +35,14 @@ echo "Setting Interfacing options complete"
 echo "Setting Locale options"
 raspi-config nonint do_change_locale $LOCALE
 raspi-config nonint do_change_timezone $TIMEZONE
-echo "Setting Locale options complete"
-goto ask
-ask() 
+echo "Setting Locale options complete" 
 {
-1=Choose
 local AMSURE
-if [ -n "$1" ] ; then
+if [ -n "Choose" ] ; then
    echo "a. homebridge-install.sh"
    echo "b. not yet realised"
    echo "c. not yet realised"
-   read -n 1 -p "$1 (a/b/c): " AMSURE
+   read -n 1 -p "Choose (a/b/c): " AMSURE
 else
    read -n 1 AMSURE
 fi
@@ -64,13 +61,8 @@ else
       # Call 
       echo "nope"
       else
-         return 1
+         reboot
       fi
    fi
 fi
 }
-
-# Call homebridge-install.sh
-wget "https://github.com/gfkmfk/sweethome/raw/master/scripts/homebridge-install.sh" -O /usr/local/bin/homebridge-install.sh
-chmod +x /usr/local/bin/homebridge-install.sh
-/usr/local/bin/homebridge-install.sh
