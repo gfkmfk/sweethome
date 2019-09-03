@@ -44,50 +44,54 @@ welcome_fn() {
 
 # Ask function
 ask_fn() {
-read -t 10 -p "What you choose?: " answer
-case $answer in
-  [1]* )  clear
-          echo ""
-          echo "Okay, you choosed ${choose_1}"
-          echo ""
-          sleep 3
-          choose_1
-          break;;
-
-  [2]* )  clear
-          echo ""
-          echo "Okay, you choosed ${choose_2}..."
-          echo ""
-          sleep 3
-          choose_2
-          break;;
-
-  [3]* )  clear
-          echo ""
-          echo "Okay, you choosed ${choose_3}..."
-          echo ""
-          sleep 3
-          choose_3
-          break;;
-
-  [4]* )  clear
-          echo ""
-          echo "Okay, you choosed ${choose_4}..."
-          echo ""
-          sleep 3
-          choose_4
-          break;;
-
-  [xX]* ) echo ""
-          echo "Okay, exiting..."
-          echo ""
-          sleep 3
-          clear
-          exit;;
-
-  * )     echo ""
-          echo "Dude, just enter 1, 2, 3, 4 or X 🤬"
-          ask_fn;;
-esac
+echo -p "What you choose?: " 
+read answer
+if   [ $ans == "1" ]; then
+  clear
+  echo ""
+  echo "Okay, you choosed ${choose_1}..."
+  echo ""
+  sleep 3
+  choose_1
+elif [ $ans == "2" ]; then
+  clear        
+  echo ""
+  echo "Okay, you choosed ${choose_2}..."
+  echo ""
+  sleep 3
+  choose_2
+elif [ $ans == "3" ]; then
+  clear
+  echo ""
+  echo "Okay, you choosed ${choose_3}..."
+  echo ""
+  sleep 3
+  choose_3
+elif [ $ans == "4" ]; then
+  clear
+  echo ""
+  echo "Okay, you choosed ${choose_4}..."
+  echo ""
+  sleep 3
+  choose_4
+elif [ $ans == "x" ]; then
+  echo ""
+  echo "Okay, exiting..."
+  echo ""
+  sleep 3
+  clear
+  exit
+elif [ $ans == "X" ]; then
+  echo ""
+  echo "Okay, exiting..."
+  echo ""
+  sleep 3
+  clear
+  exit
+else
+  echo ""
+  echo "Dude, just enter 1, 2, 3, 4 or X 🤬"
+  ask_fn
+fi
 }
 welcome_fn
