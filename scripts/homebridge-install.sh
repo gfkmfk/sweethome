@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Set Hostname
-  HOSTNAME=SweetHomeAutomationUnit
+HOSTNAME=SweetHomeAutomationUnit
 
 # Setting config and autostart files for Homebridge
-  mkdir /var/homebridge
-  cat <<EOF > /var/homebridge/config.json
+mkdir /var/homebridge
+cat <<EOF > /var/homebridge/config.json
     {
       "bridge": {
         "name": "SweetHome",
@@ -33,23 +33,21 @@
         }
       ]
     }
-  EOF
-  cat <<EOF > /etc/systemd/system/homebridge.service
-    [Unit]
-    Description=SweetHome homebridge server
-    After=syslog.target network-online.target
-
-    [Service]
-    Type=simple
-    User=homebridge
-    ExecStart=/usr/local/bin/homebridge -U /var/homebridge
-    Restart=on-failure
-    RestartSec=10
-    KillMode=process
-
-    [Install]
-    WantedBy=multi-user.target
-  EOF
+EOF
+cat <<EOF > /etc/systemd/system/homebridge.service
+[Unit]
+Description=SweetHome homebridge server
+After=syslog.target network-online.target
+[Service]
+Type=simple
+User=homebridge
+ExecStart=/usr/local/bin/homebridge -U /var/homebridge
+Restart=on-failure
+RestartSec=10
+KillMode=process
+[Install]
+WantedBy=multi-user.target
+EOF
   
 # Setting install stage (1)
   cat <<EOF > /etc/systemd/system/homebridge-install1.service
