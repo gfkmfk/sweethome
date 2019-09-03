@@ -57,9 +57,6 @@ systemctl stop mongodb
 systemctl disable mongodb
 systemctl disable wificontroller-install2.service
 systemctl daemon-reload
-rm -rf /usr/local/bin/main-install.sh
-rm -rf /usr/local/bin/choose.sh
-rm -rf /usr/local/bin/wificontroller-install.sh
 rm -rf /etc/systemd/system/wificontroller-install1.service
 rm -rf /usr/local/bin/wificontroller-install1.sh
 rm -rf /etc/systemd/system/wificontroller-install2.service
