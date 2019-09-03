@@ -4,9 +4,9 @@ echo ""
 echo "Choosed - A. Domoticz + Homebridge"
 echo "Running script"
 echo ""
-curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/domoticz-install.sh -o /usr/local/bin/domoticz-install.sh
-chmod +x /usr/local/bin/domoticz-install.sh
-/usr/local/bin/domoticz-install.sh
+curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/homebridge-install.sh -o /usr/local/bin/homebridge-install.sh
+chmod +x /usr/local/bin/homebridge-install.sh
+/usr/local/bin/homebridge-install.sh
 exit 1
 }
 option_b() {
@@ -21,10 +21,13 @@ exit 1
 }
 option_c() {
 echo ""
-echo "Choosed - C. Not yet realised"
-echo "Calling ask_func"
+echo "Choosed - C. Domoticz only"
+echo "Running script"
 echo ""
-ask_func
+curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/domoticz-install.sh -o /usr/local/bin/domoticz-install.sh
+chmod +x /usr/local/bin/domoticz-install.sh
+/usr/local/bin/domoticz-install.sh
+exit 1
 }
 option_d() {
 echo ""
@@ -51,7 +54,7 @@ echo "Please choose configution:"
 echo ""
 echo "A. Domoticz + Homebridge"
 echo "B. Ubiquity WiFi controller"
-echo "C. Not yet realised"
+echo "C. Domoticz only"
 echo "D. Not yet realised"
 echo ""
 echo "X. Exit"
