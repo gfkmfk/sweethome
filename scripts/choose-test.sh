@@ -3,8 +3,8 @@
 # Choose options
 choose_1="1. Homebridge + Domoticz"
 choose_2="2. UniFi Controller"
-choose_3=""
-choose_4=""
+choose_3="3. -= nope =-"
+choose_4="4. -= nope =-"
 
 # Option's functions
 option_1() {
