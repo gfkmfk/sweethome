@@ -22,7 +22,7 @@ do
            echo "Running sript"
            echo
            exec curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/homebridge-install.sh | sudo bash
-           exit;;
+           break;;
            
    [bB]* ) echo 
            echo "Choosed: B. Ubiquity WiFi controller"
@@ -30,7 +30,7 @@ do
            echo "Running sript"
            echo
            exec curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/wificontroller-install.sh | sudo bash
-           exit;;
+           break;;
            
    [cC]* ) echo
            echo "Choosed: C. Not yet realised"
