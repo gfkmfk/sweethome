@@ -25,7 +25,7 @@ echo "test opt_4"
 }
 
 # Welcome function
-welcome_sessage() {
+welcome_fn() {
   clear
   echo ""
   echo "     Hello and Welcome!"
@@ -39,11 +39,11 @@ welcome_sessage() {
   echo "${choose_4}"
   echo ""
   echo "X. Exit script"
-  ask_script
+  ask_fn
 }
 
 # Ask function
-ask_script() {
+ask_fn() {
 read -p "What you choose?: " answer
 case $answer in
   [1]* )  clear
@@ -86,9 +86,8 @@ case $answer in
           exit;;
 
   * )     echo ""
-          echo "Dude, just enter 1, 2, 3, 4 or X please."
+          echo "Dude, just enter 1, 2, 3, 4 or X 🤬"
           ask_script;;
 esac
 }
-welcome_sessage
-
+welcome_fn
