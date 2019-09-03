@@ -13,7 +13,7 @@ option_1() {
 }
 option_2() {
   echo "test opt_2"
-  exit
+  #exit
 }
 option_3() {
   echo "test opt_3"
@@ -22,6 +22,14 @@ option_3() {
 option_4() {
   echo "test opt_4"
   #exit
+}
+option_X() {
+  echo "Okay, exiting"
+  exit
+}
+option_F() {
+  echo "Dude, just enter 1, 2, 3, 4 or X 🤬"
+  ask_fn
 }
 
 # Welcome function
@@ -46,54 +54,17 @@ welcome_fn() {
 ask_fn() {
   echo "What you choose?: " 
   read ans
-  echo "You typed "${ans}""
+  echo ""
+  echo "Okay, you choosed ${ans}..."
+  echo ""
   sleep 10
-  if   [ "$ans" == "1" ]; then
-    clear
-    echo ""
-    echo "Okay, you choosed ${choose_1}..."
-    echo ""
-    sleep 3
-    option_1
-  elif [ "$ans" == "2" ]; then
-    clear        
-    echo ""
-    echo "Okay, you choosed ${choose_2}..."
-    echo ""
-    sleep 3
-    option_2
-  elif [ "$ans" == "3" ]; then
-    clear
-    echo ""
-    echo "Okay, you choosed ${choose_3}..."
-    echo ""
-    sleep 3
-    option_3
-  elif [ "$ans" == "4" ]; then
-    clear
-    echo ""
-    echo "Okay, you choosed ${choose_4}..."
-    echo ""
-    sleep 3
-    option_4
-  elif [ "$ans" == "x" ]; then
-    echo ""
-    echo "Okay, exiting..."
-    echo ""
-    sleep 3
-    clear
-    exit
-  elif [ "$ans" == "X" ]; then
-    echo ""
-    echo "Okay, exiting..."
-    echo ""
-    sleep 3
-    clear
-    exit
-  else
-    echo ""
-    echo "Dude, just enter 1, 2, 3, 4 or X 🤬"
-    ask_fn
+  if   [ "$ans" == "1" ]; then option_1
+  elif [ "$ans" == "2" ]; then option_2
+  elif [ "$ans" == "3" ]; then option_3
+  elif [ "$ans" == "4" ]; then option_4
+  elif [ "$ans" == "x" ]; then option_X
+  elif [ "$ans" == "X" ]; then option_X
+  else option_F
   fi
 }
 welcome_fn
