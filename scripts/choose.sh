@@ -64,7 +64,7 @@ ask_func
 ask_func() {
   while true
     do
-      read -p "Please enter A, B, C, D or X: " answer
+      read -p -r "Please enter A, B, C, D or X: " answer
       case $answer in
         [aA]* ) option_a;;
         [bB]* ) option_b;;
