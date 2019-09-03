@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 # Domoticz: Open Source Home Automation System
-# (c) 2012, 2016 by GizMoCuz
-# Big thanks to Jacob Salmela! (Sorry i modified your domoticz install script ;)
 # http://www.domoticz.com
 # Installs Domoticz
 #
@@ -9,12 +7,10 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 2 of the License, or
 # (at your option) any later version.
-
-# Donations are welcome via the website or application
 #
 # Install with this command (from your Pi):
 #
-# curl -L install.domoticz.com | bash
+# curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/domoticz-install.sh | bash
 
 set -e
 ######## VARIABLES #########
