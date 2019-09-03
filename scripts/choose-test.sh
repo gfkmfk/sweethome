@@ -9,15 +9,19 @@ choose_4="4. -= nope =-"
 # Option's functions
 option_1() {
 echo "test opt_1"
+#exit
 }
 option_2() {
 echo "test opt_2"
+exit
 }
 option_3() {
 echo "test opt_3"
+#exit
 }
 option_4() {
 echo "test opt_4"
+#exit
 }
 
 # Welcome function
@@ -48,7 +52,7 @@ case $answer in
           echo ""
           sleep 3
           choose_1
-  break;;
+          break;;
 
   [2]* )  clear
           echo ""
@@ -56,7 +60,7 @@ case $answer in
           echo ""
           sleep 3
           choose_2
-  break;;
+          break;;
 
   [3]* )  clear
           echo ""
@@ -64,7 +68,7 @@ case $answer in
           echo ""
           sleep 3
           choose_3
-  break;;
+          break;;
 
   [4]* )  clear
           echo ""
@@ -72,21 +76,19 @@ case $answer in
           echo ""
           sleep 3
           choose_4
-  break;;
+          break;;
 
-  [xX]* ) clear
-          echo ""
+  [xX]* ) echo ""
           echo "Okay, exiting..."
           echo ""
           sleep 3
-  exit;;
+          clear
+          exit;;
 
   * )     echo ""
           echo "Dude, just enter 1, 2, 3, 4 or X please."
-          ask_script
-  break;;
-  esac
-done
+          ask_script;;
+esac
 }
 welcome_sessage
 
