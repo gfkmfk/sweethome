@@ -28,6 +28,7 @@ option_X() {
   exit
 }
 option_F() {
+  echo ""
   echo "Dude, just enter 1, 2, 3, 4 or X 🤬"
   ask_fn
 }
@@ -55,7 +56,7 @@ ask_fn() {
   echo "What you choose?: " 
   read ans
   echo ""
-  echo "Okay, you choosed ${ans}..."
+  echo "Okay, you choosed "${ans}"..."
   echo ""
   sleep 10
   if   [ "$ans" == "1" ]; then option_1
