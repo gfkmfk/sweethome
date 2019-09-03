@@ -9,7 +9,6 @@ echo "D. Not yet realised"
 echo
 echo "X. Exit"
 echo
-echo "-"
 while true
 do
   # (1) prompt user, and read command line argument
