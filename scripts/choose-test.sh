@@ -22,6 +22,7 @@ echo "test opt_4"
 
 # Welcome function
 welcome_sessage() {
+  clear
   echo 
   echo "     Hello and Welcome!"
   echo 
@@ -33,6 +34,7 @@ welcome_sessage() {
   echo "${choose_3}"
   echo "${choose_4}"
   echo 
+  echo "X. Exit script"
   ask_script
 }
 
@@ -42,27 +44,46 @@ while true
 do
 read -p "What you choose?: " answer
 case $answer in
-   [1]* ) echo "Okay, you choosed ${choose_1}"
+   [1]* ) clear
+          echo
+          echo "Okay, you choosed ${choose_1}"
+          echo
           sleep 3
           choose_1
            break;;
 
-   [2]* ) echo "Okay, you choosed ${choose_2}"
+   [2]* ) clear
+          echo
+          echo "Okay, you choosed ${choose_2}"
+          echo
           sleep 3
           choose_2
            break;;
 
-   [3]* ) echo "Okay, you choosed ${choose_3}"
+   [3]* ) clear
+          echo
+          echo "Okay, you choosed ${choose_3}"
+          echo
           sleep 3
           choose_3
            break;;
 
-   [4]* ) echo "Okay, you choosed ${choose_4}"
+   [4]* ) clear
+          echo
+          echo "Okay, you choosed ${choose_4}"
+          echo
           sleep 3
           choose_4
            break;;
 
-   * )     echo "Dude, just enter 1, 2, 3 or 4, please.";;
+   [xX]* ) clear
+           echo
+           echo "Okay, you choosed ${choose_4}"
+           echo
+           sleep 3
+            exit;;
+
+   * )     echo "Dude, just enter 1, 2, 3, 4 or X please.";;
   esac
 done
 }
