@@ -82,9 +82,9 @@ case $answer in
             exit;;
 
    * )     echo ""
-           echo "Dude, just enter 1, 2, 3, 4 or X please.";;
+           echo "Dude, just enter 1, 2, 3, 4 or X please."
            ask_script
-            break;;
+           break;;
   esac
 done
 }
