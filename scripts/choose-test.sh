@@ -52,28 +52,28 @@ ask_fn() {
     echo "Okay, you choosed ${choose_1}..."
     echo ""
     sleep 3
-    choose_1
+    option_1
   elif (( $ans == "2" )); then
     clear        
     echo ""
     echo "Okay, you choosed ${choose_2}..."
     echo ""
     sleep 3
-    choose_2
+    option_2
   elif (( $ans == "3" )); then
     clear
     echo ""
     echo "Okay, you choosed ${choose_3}..."
     echo ""
     sleep 3
-    choose_3
+    option_3
   elif (( $ans == "4" )); then
     clear
     echo ""
     echo "Okay, you choosed ${choose_4}..."
     echo ""
     sleep 3
-    choose_4
+    option_4
   elif (( $ans == "x" )); then
     echo ""
     echo "Okay, exiting..."
