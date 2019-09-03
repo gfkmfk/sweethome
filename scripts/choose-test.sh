@@ -40,8 +40,6 @@ welcome_sessage() {
 
 # Ask function
 ask_script() {
-while true
-do
 read -p "What you choose?: " answer
 case $answer in
    [1]* ) clear
@@ -84,6 +82,8 @@ case $answer in
             exit;;
 
    * )     echo "Dude, just enter 1, 2, 3, 4 or X please.";;
+           ask_script
+             break;;
   esac
 done
 }
