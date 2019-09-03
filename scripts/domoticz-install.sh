@@ -532,7 +532,7 @@ main() {
 	else
 		echo "Unattended installation started!"
 		mkdir -p /etc/domoticz/
-		Dest_folder=""
+		Dest_folder="/usr/local/domoticz"
 		Enable_http=true
 		Enable_https=true
 		HTTP_port="8080"
