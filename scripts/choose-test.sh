@@ -44,8 +44,8 @@ welcome_fn() {
 
 # Ask function
 ask_fn() {
-  echo -p "What you choose?: " 
-  read answer
+  echo "What you choose?: " 
+  read ans
   if   [ "$ans" == "1" ]; then
     clear
     echo ""
