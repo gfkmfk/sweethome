@@ -39,13 +39,13 @@ welcome_fn() {
   echo "${choose_4}"
   echo ""
   echo "X. Exit script"
+  read ans
   ask_fn
 }
 
 # Ask function
 ask_fn() {
   echo "What you choose?: " 
-  read ans
   if   [ "$ans" == "1" ]; then
     clear
     echo ""
