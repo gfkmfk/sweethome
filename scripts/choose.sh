@@ -18,22 +18,18 @@ do
   case $answer in
    [aA]* ) echo 
            echo "Choosed: A. Domoticz + Homebridge"
-           wget "https://github.com/gfkmfk/sweethome/raw/master/scripts/homebridge-install.sh" -O /usr/local/bin/homebridge-install.sh
-           chmod +x /usr/local/bin/homebridge-install.sh
            echo
            echo "Running sript"
            echo
-           /usr/local/bin/homebridge-install.sh
+           exec curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/homebridge-install.sh | sudo bash
            exit;;
            
    [bB]* ) echo 
            echo "Choosed: B. Ubiquity WiFi controller"
-           wget "https://github.com/gfkmfk/sweethome/raw/master/scripts/wificontroller-install.sh" -O /usr/local/bin/wificontroller-install.sh
-           chmod +x /usr/local/bin/wificontroller-install.sh
            echo
            echo "Running sript"
            echo
-           /usr/local/bin/wificontroller-install.sh
+           exec curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/wificontroller-install.sh | sudo bash
            exit;;
            
    [cC]* ) echo
