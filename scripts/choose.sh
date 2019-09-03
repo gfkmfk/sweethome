@@ -1,14 +1,14 @@
 #!/bin/bash
-echo
+echo ""
 echo "Please choose configution:"
-echo
+echo ""
 echo "A. Domoticz + Homebridge"
 echo "B. Ubiquity WiFi controller"
 echo "C. Not yet realised"
 echo "D. Not yet realised"
-echo
+echo ""
 echo "X. Exit"
-echo
+echo ""
 while true
 do
   # (1) prompt user, and read command line argument
@@ -16,37 +16,37 @@ do
 
   # (2) handle the input we were given
   case $answer in
-   [aA]* ) echo 
+   [aA]* ) echo ""
            echo "Choosed: A. Domoticz + Homebridge"
-           echo
+           echo ""
            echo "Running sript"
-           echo
+           echo ""
            exec curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/homebridge-install.sh | sudo bash
            break;;
            
-   [bB]* ) echo 
+   [bB]* ) echo ""
            echo "Choosed: B. Ubiquity WiFi controller"
-           echo
+           echo ""
            echo "Running sript"
-           echo
+           echo ""
            exec curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/wificontroller-install.sh | sudo bash
            break;;
            
-   [cC]* ) echo
+   [cC]* ) echo ""
            echo "Choosed: C. Not yet realised"
-           echo;;
+           echo "";;
            
-   [dD]* ) echo
+   [dD]* ) echo ""
            echo "Choosed: D. Not yet realised"
-           echo;;
+           echo "";;
 
-   [xX]* ) echo
+   [xX]* ) echo ""
            echo "Exiting"
-           echo
+           echo ""
            exit;;
 
-   * )     echo
+   * )     echo ""
            echo "Dude, just enter A, B, C, D or X, please."
-           echo;;
+           echo "";;
   esac
 done
