@@ -54,7 +54,7 @@ case $answer in
 
    [2]* ) clear
           echo
-          echo "Okay, you choosed ${choose_2}"
+          echo "Okay, you choosed ${choose_2}..."
           echo
           sleep 3
           choose_2
@@ -62,7 +62,7 @@ case $answer in
 
    [3]* ) clear
           echo
-          echo "Okay, you choosed ${choose_3}"
+          echo "Okay, you choosed ${choose_3}..."
           echo
           sleep 3
           choose_3
@@ -70,7 +70,7 @@ case $answer in
 
    [4]* ) clear
           echo
-          echo "Okay, you choosed ${choose_4}"
+          echo "Okay, you choosed ${choose_4}..."
           echo
           sleep 3
           choose_4
@@ -78,7 +78,7 @@ case $answer in
 
    [xX]* ) clear
            echo
-           echo "Okay, you choosed ${choose_4}"
+           echo "Okay, exiting..."
            echo
            sleep 3
             exit;;
