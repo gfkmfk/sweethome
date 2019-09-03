@@ -66,4 +66,4 @@ case $answer in
   esac
 done
 }
-main "$welcome_message"
+welcome_sessage
