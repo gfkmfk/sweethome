@@ -44,7 +44,7 @@ welcome_fn() {
 
 # Ask function
 ask_fn() {
-read -p "What you choose?: " answer
+read -t 10 -p "What you choose?: " answer
 case $answer in
   [1]* )  clear
           echo ""
