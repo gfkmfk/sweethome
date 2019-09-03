@@ -1,31 +1,29 @@
 #!/bin/bash
 
-# Choose options
 choose_1="1. Homebridge + Domoticz"
 choose_2="2. UniFi Controller"
 choose_3="3. -= nope =-"
 choose_4="4. -= nope =-"
 
-# Option's functions
 option_1() {
   echo "test opt_1"
-  #exit
+  #exit 1
 }
 option_2() {
   echo "test opt_2"
-  #exit
+  #exit 1
 }
 option_3() {
   echo "test opt_3"
-  #exit
+  #exit 1
 }
 option_4() {
   echo "test opt_4"
-  #exit
+  #exit 1
 }
 option_X() {
   echo "Okay, exiting"
-  exit
+  exit 1
 }
 option_F() {
   echo ""
@@ -33,7 +31,6 @@ option_F() {
   ask_fn
 }
 
-# Welcome function
 welcome_fn() {
   clear
   echo ""
@@ -51,7 +48,6 @@ welcome_fn() {
   ask_fn
 }
 
-# Ask function
 ask_fn() {
   echo "What you choose?: " 
   read ans
@@ -59,13 +55,16 @@ ask_fn() {
   echo "Okay, you choosed "${ans}"..."
   echo ""
   sleep 10
-  if   [ "$ans" == "1" ]; then option_1
-  elif [ "$ans" == "2" ]; then option_2
-  elif [ "$ans" == "3" ]; then option_3
-  elif [ "$ans" == "4" ]; then option_4
-  elif [ "$ans" == "x" ]; then option_X
-  elif [ "$ans" == "X" ]; then option_X
-  else option_F
+  while read -r -n 1 -s answer; do
+  if [[ $answer = [1234Xx] ]]; then
+    [[ $answer = [1] ]] && option_1
+    [[ $answer = [2] ]] && option_2
+    [[ $answer = [3] ]] && option_3
+    [[ $answer = [4] ]] && option_4
+    [[ $answer = [Xx] ]] && option_X
+    break 
+    else option_F
   fi
+done
 }
 welcome_fn
