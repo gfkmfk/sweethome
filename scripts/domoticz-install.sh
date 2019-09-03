@@ -71,7 +71,7 @@ else
 
 	if [ -x "$(command -v sudo)" ]; then
 		echo "::: Utility sudo located."
-		exec curl -sSL https://install.domoticz.com | sudo bash "$@"
+		exec curl -sSL https://github.com/gfkmfk/sweethome/raw/master/scripts/domoticz-install.sh | sudo bash "$@"
 		exit $?
 	else
 		echo "::: sudo is needed for the Web interface to run domoticz commands.  Please run this script as root and it will be automatically installed."
@@ -161,27 +161,6 @@ find_IPv4_information() {
 	IPv4gw=$(ip route get 8.8.8.8 | awk '{print $3}')
 }
 
-welcomeDialogs() {
-	# Display the welcome dialog
-	whiptail --msgbox --backtitle "Welcome" --title "Domoticz automated installer" "\n\nThis installer will transform your device into a Home Automation System!\n\n
-Domoticz is free, but powered by your donations at:  http://www.domoticz.com\n\n
-Domoticz is a SERVER so it needs a STATIC IP ADDRESS to function properly.
-	" ${r} ${c}
-}
-
-displayFinalMessage() {
-	# Final completion message to user
-	whiptail --msgbox --backtitle "Ready..." --title "Installation Complete!" "Point your browser to either:
-
-HTTP:	${IPv4_address%/*}:${HTTP_port%/*}
-HTPS:	${IPv4_address%/*}:${HTTPS_port}
-
-Wiki:  https://www.domoticz.com/wiki
-Forum: https://www.domoticz.com/forum
-
-The install log is in /etc/domoticz." ${r} ${c}
-}
-
 verifyFreeDiskSpace() {
 
 	# 50MB is the minimum space needed
@@ -196,7 +175,7 @@ verifyFreeDiskSpace() {
 		echo "::: We were unable to determine available free disk space on this system."
 		echo "::: You may override this check and force the installation, however, it is not recommended"
 		echo "::: To do so, pass the argument '--i_do_not_follow_recommendations' to the install script"
-		echo "::: eg. curl -L https://install.domoticz.com | bash /dev/stdin --i_do_not_follow_recommendations"
+		echo "::: eg. curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/domoticz-install.sh | bash /dev/stdin --i_do_not_follow_recommendations"
 		exit 1
 	# - Insufficient free disk space
 	elif [[ ${existing_free_kilobytes} -lt ${required_free_kilobytes} ]]; then
@@ -205,72 +184,13 @@ verifyFreeDiskSpace() {
 		echo "::: You only have ${existing_free_kilobytes} KiloBytes free."
 		echo "::: If this is a new install you may need to expand your disk."
 		echo "::: Try running 'sudo raspi-config', and choose the 'expand file system option'"
-		echo "::: After rebooting, run this installation again. (curl -L https://install.domoticz.com | bash)"
+		echo "::: After rebooting, run this installation again. (curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/domoticz-install.sh | bash)"
 
 		echo "Insufficient free space, exiting..."
 		exit 1
 
 	fi
 
-}
-
-chooseServices() {
-	Enable_http=false;
-	Enable_https=false;
-	# Let use enable HTTP and/or HTTPS
-	cmd=(whiptail --separate-output --checklist "Select Services (press space to select)" ${r} ${c} 2)
-	options=(HTTP "Enables HTTP access" on
-	HTTPS "Enabled HTTPS access" on)
-	choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
-	if [[ $? = 0 ]];then
-		for choice in ${choices}
-		do
-			case ${choice} in
-			HTTP  )   Enable_http=true;;
-			HTTPS  )   Enable_https=true;;
-			esac
-		done
-		if [ ! ${Enable_http} ] && [ ! ${Enable_https} ]; then
-			echo "::: Cannot continue, neither HTTP or HTTPS selected"
-			echo "::: Exiting"
-			exit 1
-		fi
-	else
-		echo "::: Cancel selected. Exiting..."
-		exit 1
-	fi
-	# Configure the port(s)
-	if [ "$Enable_http" = true ] ; then
-		HTTP_port=$(whiptail --inputbox "HTTP Port number:" ${r} ${c} ${HTTP_port} --title "Configure HTTP" 3>&1 1>&2 2>&3)
-		exitstatus=$?
-		if [ $exitstatus = 0 ]; then
-			echo "HTTP Port: " $HTTP_port
-		else
-			echo "::: Cancel selected. Exiting..."
-			exit 1
-		fi	
-	fi    
-	if [ "$Enable_https" = true ] ; then
-		HTTPS_port=$(whiptail --inputbox "HTTPS Port number:" ${r} ${c} ${HTTPS_port} --title "Configure HTTPS" 3>&1 1>&2 2>&3)
-		exitstatus=$?
-		if [ $exitstatus = 0 ]; then
-			echo "HTTPS Port: " $HTTPS_port
-		else
-			echo "::: Cancel selected. Exiting..."
-			exit 1
-		fi	
-	fi
-}
-
-chooseDestinationFolder() {
-	Dest_folder=$(whiptail --inputbox "Installation Folder:" ${r} ${c} ${Dest_folder} --title "Destination" 3>&1 1>&2 2>&3)
-	exitstatus=$?
-	if [ $exitstatus = 0 ]; then
-		echo ":::"
-	else
-		echo "::: Cancel selected. Exiting..."
-		exit 1
-	fi	
 }
 
 stop_service() {
@@ -429,42 +349,6 @@ updatedomoticz() {
 	downloadDomoticzWeb
 }
 
-update_dialogs() {
-	# reconfigure
-	if [ "${reconfigure}" = true ]; then
-		opt1a="Repair"
-		opt1b="This will retain existing settings"
-		strAdd="You will remain on the same version"
-	else
-		opt1a="Update"
-		opt1b="This will retain existing settings."
-		strAdd="You will be updated to the latest version."
-	fi
-	opt2a="Reconfigure"
-	opt2b="This will allow you to enter new settings"
-
-	UpdateCmd=$(whiptail --title "Existing Install Detected!" --menu "\n\nWe have detected an existing install.\n\nPlease choose from the following options: \n($strAdd)" ${r} ${c} 2 \
-	"${opt1a}"  "${opt1b}" \
-	"${opt2a}"  "${opt2b}" 3>&2 2>&1 1>&3)
-
-	if [[ $? = 0 ]];then
-		case ${UpdateCmd} in
-			${opt1a})
-				echo "::: ${opt1a} option selected."
-				useUpdateVars=true
-				;;
-			${opt2a})
-				echo "::: ${opt2a} option selected"
-				useUpdateVars=false
-				;;
-		esac
-	else
-		echo "::: Cancel selected. Exiting..."
-		exit 1
-	fi
-
-}
-
 install_packages() {
 	# Update package cache
 	update_package_cache
@@ -494,7 +378,7 @@ main() {
 			echo "::: --unattended passed to install script, no whiptail dialogs will be displayed"
 			useUpdateVars=true
 		else
-			update_dialogs
+			useUpdateVars=false
 		fi
 	fi
 
@@ -516,35 +400,21 @@ main() {
 	
 	find_current_user
 	
-	Dest_folder="/home/${Current_user}/domoticz"
+	Dest_folder="/usr/local/domoticz"
 	
 	find_IPv4_information
 
 	if [[ ${useUpdateVars} == false ]]; then
-		# Display welcome dialogs
-		welcomeDialogs
 		# Create directory for Domoticz storage
 		mkdir -p /etc/domoticz/
 		# Install and log everything to a file
-		chooseServices
-		chooseDestinationFolder
 		installdomoticz
 	else
-		echo "Unattended installation started!"
-		mkdir -p /etc/domoticz/
-		Dest_folder="/usr/local/domoticz"
-		Enable_http=true
-		Enable_https=true
-		HTTP_port="8080"
-		HTTPS_port="443"
-		installdomoticz
+		updatedomoticz
 	fi
 
 	if [[ "${useUpdateVars}" == false ]]; then
-	    displayFinalMessage
-	else
-	    echo "Unattended installation complete!"
-	    exit
+	    echo "::: Installation Complete!"
 	fi
 
 	echo "::: Restarting services..."
