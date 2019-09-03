@@ -270,8 +270,6 @@ install_dependent_packages() {
 
 finalExports() {
 	#If it already exists, lets overwrite it with the new values.
-	rm -rf /usr/local/bin/domoticz-install.sh
-        rm -rf /usr/local/bin/choose.sh
 	if [[ -f ${setupVars} ]]; then
 		rm ${setupVars}
 	fi
@@ -328,6 +326,8 @@ makeStartupScript() {
     rm /tmp/domoticz_tmp_ss1
     cat /tmp/domoticz_tmp_ss2 | sed -e "s%/home/\$USERNAME/domoticz%${Dest_folder}%" > /tmp/domoticz_tmp_ss1
     rm /tmp/domoticz_tmp_ss2
+    rm /usr/local/bin/domoticz-install.sh
+    rm /usr/local/bin/choose.sh
     
     mv /tmp/domoticz_tmp_ss1 /etc/init.d/domoticz.sh
 	chmod +x /etc/init.d/domoticz.sh
