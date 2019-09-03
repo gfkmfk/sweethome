@@ -1,5 +1,5 @@
 #!/bin/bash
-option_a {
+option_a() {
 echo ""
 echo "Choosed - A. Domoticz + Homebridge"
 echo "Running script"
@@ -9,7 +9,7 @@ chmod +x /usr/local/bin/domoticz-install.sh
 /usr/local/bin/domoticz-install.sh
 exit 1
 }
-option_b {
+option_b() {
 echo ""
 echo "Choosed - B. Ubiquity WiFi controller"
 echo "Running script"
@@ -19,32 +19,32 @@ chmod +x /usr/local/bin/wificontroller-install.sh
 /usr/local/bin/wificontroller-install.sh
 exit 1
 }
-option_c {
+option_c() {
 echo ""
 echo "Choosed - C. Not yet realised"
 echo "Calling ask_func"
 echo ""
 ask_func
 }
-option_d {
+option_d() {
 echo ""
 echo "Choosed - D. Not yet realised"
 echo "Calling ask_func"
 echo ""
 ask_func
 }
-option_x {
+option_x() {
 echo ""
 echo "Okay, exiting..."
 exit 1
 }
-option_f {
+option_f() {
 echo ""
 echo "Dude, choose A, B, C, D or X 🤬"
 echo ""
 ask_func
 }
-welcome_func {
+welcome_func() {
 clear
 echo ""
 echo "Please choose configution:"
@@ -58,7 +58,7 @@ echo "X. Exit"
 echo ""
 ask_func
 }
-ask_func {
+ask_func() {
   while true
     do
       read -p "Please enter A, B, C, D or X: " answer
