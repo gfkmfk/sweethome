@@ -123,7 +123,9 @@ cat <<EOF > /usr/local/bin/homebridge-install3.sh
 #!/bin/bash
 sleep 30
 # Installing Domoticz and Setting up Homebridge
-exec curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/domoticz-install.sh | sudo bash
+curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/domoticz-install.sh -o /usr/local/bin/domoticz-install.sh
+chmod +x /usr/local/bin/domoticz-install.sh
+/usr/local/bin/domoticz-install.sh
 sleep 10
 systemctl daemon-reload
 sleep 20
@@ -131,6 +133,9 @@ systemctl enable homebridge
 # Removing previous stage (3) and cleaning up
 systemctl disable homebridge-install3.service
 systemctl daemon-reload
+rm -rf /usr/local/bin/homebridge-install.sh
+rm -rf /usr/local/bin/domoticz-install.sh
+rm -rf /usr/local/bin/choose.sh
 rm -rf /etc/systemd/system/homebridge-install1.service
 rm -rf /usr/local/bin/homebridge-install1.sh
 rm -rf /etc/systemd/system/homebridge-install2.service
