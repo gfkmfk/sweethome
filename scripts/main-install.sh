@@ -27,5 +27,7 @@ raspi-config nonint do_rgpio 1
 raspi-config nonint do_change_locale $LOCALE
 raspi-config nonint do_change_timezone $TIMEZONE
 # Call Choose
-exec curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/choose.sh | sudo bash
+curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/choose.sh -o /usr/local/bin/choose.sh
+chmod +x /usr/local/bin/choose.sh
+/usr/local/bin/choose.sh
 exit
