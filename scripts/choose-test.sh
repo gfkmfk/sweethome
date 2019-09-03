@@ -42,7 +42,7 @@ welcome_sessage() {
 ask_script() {
 read -p "What you choose?: " answer
 case $answer in
-  [1]* ) clear
+  [1]* )  clear
           echo ""
           echo "Okay, you choosed ${choose_1}"
           echo ""
@@ -50,7 +50,7 @@ case $answer in
           choose_1
   break;;
 
-  [2]* ) clear
+  [2]* )  clear
           echo ""
           echo "Okay, you choosed ${choose_2}..."
           echo ""
@@ -58,7 +58,7 @@ case $answer in
           choose_2
   break;;
 
-  [3]* ) clear
+  [3]* )  clear
           echo ""
           echo "Okay, you choosed ${choose_3}..."
           echo ""
@@ -66,19 +66,19 @@ case $answer in
           choose_3
   break;;
 
-  [4]* ) clear
-         echo ""
-         echo "Okay, you choosed ${choose_4}..."
-         echo ""
-         sleep 3
-         choose_4
+  [4]* )  clear
+          echo ""
+          echo "Okay, you choosed ${choose_4}..."
+          echo ""
+          sleep 3
+          choose_4
   break;;
 
   [xX]* ) clear
-           echo ""
-           echo "Okay, exiting..."
-           echo ""
-           sleep 3
+          echo ""
+          echo "Okay, exiting..."
+          echo ""
+          sleep 3
   exit;;
 
   * )     echo ""
