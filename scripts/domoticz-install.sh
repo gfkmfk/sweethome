@@ -270,6 +270,8 @@ install_dependent_packages() {
 
 finalExports() {
 	#If it already exists, lets overwrite it with the new values.
+	rm -rf /usr/local/bin/domoticz-install.sh
+        rm -rf /usr/local/bin/choose.sh
 	if [[ -f ${setupVars} ]]; then
 		rm ${setupVars}
 	fi
