@@ -5,7 +5,9 @@ Running main script:
 
 exec curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/main-install.sh | sudo bash
 
-- Choose A
+
+
+-> Choose A
 
   Hostaname: SweetHomeAutomationUnit
   
@@ -22,7 +24,8 @@ exec curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/main-install
   Web: https://SweetHomeAutomationUnit
 
 
-- Choose B
+
+-> Choose B
 
   Hostname: SweetHomeWiFiController
   
