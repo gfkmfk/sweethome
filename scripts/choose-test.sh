@@ -1,7 +1,4 @@
 #!/bin/bash
-# 
-while true
-do
 # Prompt user, and read command line argument
 read -p "Run the cron script now? " answer
 
