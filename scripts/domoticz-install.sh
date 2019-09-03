@@ -296,6 +296,7 @@ downloadDomoticzWeb() {
 	cd $Dest_folder
 	wget -O domoticz_release.tgz "http://www.domoticz.com/download.php?channel=release&type=release&system=${OS}&machine=${MACH}"
 	echo "::: Unpacking Domoticz..."
+	echo ":::"
 	tar xvfz domoticz_release.tgz
 	rm domoticz_release.tgz
 	Database_file="${Dest_folder}/domoticz.db"
@@ -414,9 +415,11 @@ main() {
 	fi
 
 	if [[ "${useUpdateVars}" == false ]]; then
+	    echo ":::"
 	    echo "::: Installation Complete!"
 	fi
 
+	echo ":::"
 	echo "::: Restarting services..."
 	# Start services
 	enable_service domoticz.sh
@@ -425,11 +428,13 @@ main() {
 
 	echo ":::"
 	if [[ "${useUpdateVars}" == false ]]; then
-		echo "::: Installation Complete! Configure your browser to use the Domoticz using:"
+		echo "::: Setup Complete! Configure your browser to use the Domoticz using:"
 		echo ":::     ${IPv4_address%/*}:${HTTP_port}"
 		echo ":::     ${IPv4_address%/*}:${HTTPS_port}"
+		echo ":::"
 	else
 		echo "::: Update complete!"
+		echo ":::"
 	fi
 }
 
