@@ -1,8 +1,6 @@
 #!/bin/bash
-
 # Set Hostname
 HOSTNAME=SweetHomeWiFiController
-
 # Setting stage (1)
 cat <<EOF > /etc/systemd/system/wificontroller-install1.service
 [Unit]
@@ -35,7 +33,6 @@ systemctl enable wificontroller-install2.service
 sleep 20
 reboot
 EOF
-
 # Setting stage (2)
 cat <<EOF > /etc/systemd/system/wificontroller-install2.service
 [Unit]
@@ -60,6 +57,9 @@ systemctl stop mongodb
 systemctl disable mongodb
 systemctl disable wificontroller-install2.service
 systemctl daemon-reload
+rm -rf /usr/local/bin/wificontroller-install.service
+rm -rf /usr/local/bin/main-install.sh
+rm -rf /usr/local/bin/choose.ch
 rm -rf /etc/systemd/system/wificontroller-install1.service
 rm -rf /usr/local/bin/wificontroller-install1.sh
 rm -rf /etc/systemd/system/wificontroller-install2.service
@@ -68,19 +68,15 @@ systemctl daemon-reload
 sleep 20
 reboot
 EOF
-
 chmod 664 /etc/systemd/system/wificontroller-install1.service
 chmod 744 /usr/local/bin/wificontroller-install1.sh
 chmod 664 /etc/systemd/system/wificontroller-install2.service
 chmod 744 /usr/local/bin/wificontroller-install2.sh
-
 systemctl daemon-reload
 systemctl enable wificontroller-install1.service
 sleep 5
-
 # Set Hostname
 raspi-config nonint do_hostname $HOSTNAME
 sleep 5
-
 reboot
 exit
