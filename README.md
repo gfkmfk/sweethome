@@ -3,7 +3,7 @@
 
 Running main script:
 
-exec curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/main-install.sh | sudo bash
+sudo curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/main-install.sh | sudo bash
 
 
 
