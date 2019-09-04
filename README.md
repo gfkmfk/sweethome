@@ -3,7 +3,7 @@
 
 Running main script:
 
-sudo curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/main-install.sh -o /usr/local/bin/main-install.sh && sudo chmod +x /usr/local/bin/main-install.sh $$ sudo /usr/local/bin/main-install.sh
+sudo curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/main-install.sh -o /usr/local/bin/main-install.sh && sudo chmod +x /usr/local/bin/main-install.sh && sudo /usr/local/bin/main-install.sh
 
 
 -> Choose A
