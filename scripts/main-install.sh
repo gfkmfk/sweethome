@@ -30,4 +30,3 @@ raspi-config nonint do_change_timezone $TIMEZONE
 curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/choose.sh -o /usr/local/bin/choose.sh
 chmod +x /usr/local/bin/choose.sh
 /usr/local/bin/choose.sh
-exit
