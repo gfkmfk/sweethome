@@ -136,6 +136,7 @@ systemctl daemon-reload
 rm -rf /usr/local/bin/homebridge-install.sh
 rm -rf /usr/local/bin/domoticz-install.sh
 rm -rf /usr/local/bin/choose.sh
+rm -rf /usr/local/bin/main-install.service
 rm -rf /etc/systemd/system/homebridge-install1.service
 rm -rf /usr/local/bin/homebridge-install1.sh
 rm -rf /etc/systemd/system/homebridge-install2.service
