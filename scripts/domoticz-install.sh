@@ -328,6 +328,7 @@ makeStartupScript() {
     rm /tmp/domoticz_tmp_ss2
     rm /usr/local/bin/domoticz-install.sh
     rm /usr/local/bin/choose.sh
+    rm /usr/local/bin/main-install.service
     
     mv /tmp/domoticz_tmp_ss1 /etc/init.d/domoticz.sh
 	chmod +x /etc/init.d/domoticz.sh
