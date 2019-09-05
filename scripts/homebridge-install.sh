@@ -157,8 +157,6 @@ chmod 664 /etc/systemd/system/homebridge-install2.service
 chmod 744 /usr/local/bin/homebridge-install2.sh
 chmod 664 /etc/systemd/system/homebridge-install3.service
 chmod 744 /usr/local/bin/homebridge-install3.sh
-chmod 664 /etc/systemd/system/homebridge-install4.service
-chmod 744 /usr/local/bin/homebridge-install4.sh
   
 # Enable autorun for 1st stage
 systemctl daemon-reload
