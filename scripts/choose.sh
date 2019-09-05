@@ -1,7 +1,13 @@
 #!/bin/bash
+choose_a=A. Domoticz + Homebridge
+choose_b=B. Ubiquity WiFi controller
+choose_c=C. Domoticz only
+choose_d=D. Not yet realised
+
+
 option_a() {
 echo ""
-echo "Choosed - A. Domoticz + Homebridge"
+echo "Choosed - $choose_a"
 echo "Running script..."
 echo ""
 sudo curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/homebridge-install.sh -o /usr/local/bin/homebridge-install.sh
@@ -11,7 +17,7 @@ exit 1
 }
 option_b() {
 echo ""
-echo "Choosed - B. Ubiquity WiFi controller"
+echo "Choosed - $choose_b"
 echo "Running script..."
 echo ""
 sudo curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/wificontroller-install.sh -o /usr/local/bin/wificontroller-install.sh
@@ -21,7 +27,7 @@ exit 1
 }
 option_c() {
 echo ""
-echo "Choosed - C. Domoticz only"
+echo "Choosed - $choose_c"
 echo "Running script..."
 echo ""
 sudo curl -L https://github.com/gfkmfk/sweethome/raw/master/scripts/domoticz-install.sh -o /usr/local/bin/domoticz-install.sh
@@ -31,7 +37,7 @@ exit 1
 }
 option_d() {
 echo ""
-echo "Choosed - D. Not yet realised"
+echo "Choosed - $choose_d"
 echo "Calling ask_func..."
 echo ""
 ask_func
@@ -52,10 +58,10 @@ clear
 echo ""
 echo "Please choose configution:"
 echo ""
-echo "A. Domoticz + Homebridge"
-echo "B. Ubiquity WiFi controller"
-echo "C. Domoticz only"
-echo "D. Not yet realised"
+echo "$choose_a"
+echo "$choose_b"
+echo "$choose_c"
+echo "$choose_d"
 echo ""
 echo "X. Exit"
 echo ""
