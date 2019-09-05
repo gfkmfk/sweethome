@@ -1,8 +1,8 @@
 #!/bin/bash
-choose_a=A. Domoticz + Homebridge
-choose_b=B. Ubiquity WiFi controller
-choose_c=C. Domoticz only
-choose_d=D. Not yet realised
+choose_a="A. Domoticz + Homebridge"
+choose_b="B. Ubiquity WiFi controller"
+choose_c="C. Domoticz only"
+choose_d="D. Not yet realised"
 
 
 option_a() {
